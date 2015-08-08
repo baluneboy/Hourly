@@ -32,12 +32,12 @@ public class AlarmItem extends SimplePropertyCollection {
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_HOUR = "alarm_hour";
 	public static final String KEY_MINUTE = "alarm_minute";
-	public static final String KEY_RPT_HOURLY = "alarm_rpt_mon";
-    public static final String KEY_RPT_HALFHOURLY = "alarm_rpt_tues";
-    public static final String KEY_RPT_QUARTERHOURLY = "alarm_rpt_wed";
-    public static final String KEY_RPT_TENMINUTELY = "alarm_rpt_thurs";
-    public static final String KEY_RPT_FIVEMINUTELY = "alarm_rpt_fri";
-	public static final String KEY_RPT_MINUTELY = "alarm_rpt_sat";
+	public static final String KEY_RPT_HOURLY = "alarm_rpt_hourly";
+    public static final String KEY_RPT_HALFHOURLY = "alarm_rpt_halfhourly";
+    public static final String KEY_RPT_QUARTERHOURLY = "alarm_rpt_quarterhourly";
+    public static final String KEY_RPT_TENMINUTELY = "alarm_rpt_tenminutely";
+    public static final String KEY_RPT_FIVEMINUTELY = "alarm_rpt_fiveminutely";
+	public static final String KEY_RPT_MINUTELY = "alarm_rpt_minutely";
 	public static final String KEY_BACKUP = "backup_alarm";
 	public static final String KEY_ENABLED = "alarm_enabled";
 	public static final String KEY_NET_TEST = "alarm_net_test";
@@ -77,11 +77,6 @@ public class AlarmItem extends SimplePropertyCollection {
         new SimpleProperty(KEY_RPT_TENMINUTELY, false),
         new SimpleProperty(KEY_RPT_FIVEMINUTELY, false),
         new SimpleProperty(KEY_RPT_MINUTELY, false),
-/*		new SimpleProperty(KEY_RPT_WED, false),
-		new SimpleProperty(KEY_RPT_THURS, false),
-		new SimpleProperty(KEY_RPT_FRI, false),
-		new SimpleProperty(KEY_RPT_SAT, false),
-		new SimpleProperty(KEY_RPT_SUN, false),*/
 		new SimpleProperty(KEY_BACKUP, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE).toString()),
 		new SimpleProperty(KEY_ENABLED, false),
 		new SimpleProperty(KEY_NET_TEST, false),
@@ -212,41 +207,6 @@ public class AlarmItem extends SimplePropertyCollection {
         cv.put(Calendar.FRIDAY + "", getBool(KEY_RPT_FIVEMINUTELY));
         cv.put(Calendar.SATURDAY + "", getBool(KEY_RPT_MINUTELY));
 		return cv;
-	}
-
-	public Calendar OLDgetNextAlarmCalendar() {
-
-		// get system current time
-		Calendar todayCal = Calendar.getInstance();
-		todayCal.setTimeInMillis(System.currentTimeMillis());
-
-		// set alarm time to current time, then change hour:minutes to alarm setting
-		Calendar aCal = Calendar.getInstance();
-		aCal.setTimeInMillis(todayCal.getTimeInMillis());
-		aCal.set(Calendar.HOUR_OF_DAY, getInt(KEY_HOUR));
-		aCal.set(Calendar.MINUTE, getInt(KEY_MINUTE));
-		aCal.set(Calendar.SECOND, 0);
-
-		// if alarm is set before current time, then change day part of alarm to tomorrow
-		if(todayCal.compareTo(aCal) == 1) {
-			Log.i("KenDEBUG", "Add one day to aCal.");
-			aCal.add(Calendar.DAY_OF_YEAR, 1);
-		}
-
-		// if repeating, then ratchet alarm ahead to next request/schedule day of week
-		if (hasRepeat()) {
-			Log.i("KenDEBUG", "hasRepeat...");
-			int day = aCal.get(Calendar.DAY_OF_WEEK);
-			ContentValues cv = getRptVals();
-			while (!cv.getAsBoolean(day+"")) {
-				aCal.add(Calendar.DAY_OF_YEAR, 1);
-				day = aCal.get(Calendar.DAY_OF_WEEK);
-			}
-		}
-
-		Log.i("KenDEBUG", "NEXT ALARM CAL IS " + aCal.getTime().toLocaleString());
-		return aCal;
-
 	}
 
 	// FIXME for extra repeat periods like FiveMinutely, etc.
