@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:orientation="vertical" android:layout_height="fill_parent">
+	<View android:layout_width="fill_parent" android:layout_height="1dip" android:background="@android:drawable/divider_horizontal_dark">
+	</View>
+
+		<RadioGroup
+			android:id="@+id/rgGroup1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+            <RadioButton
+                android:text="Hourly"
+                android:id="@+id/sr_chk_rpt_hourly"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+				android:checked="true" />
+
+            <RadioButton
+                android:text="HalfHourly"
+                android:id="@+id/sr_chk_rpt_halfhourly"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="QuarterHourly"
+                android:id="@+id/sr_chk_rpt_quarterhourly"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="TenMinutely"
+                android:id="@+id/sr_chk_rpt_tenminutely"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="FiveMinutely"
+                android:id="@+id/sr_chk_rpt_fiveminutely"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="Minutely"
+                android:id="@+id/sr_chk_rpt_minutely"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </RadioGroup>
+
+	<LinearLayout android:orientation="horizontal" android:layout_weight="1" android:layout_width="fill_parent" android:layout_height="100dip" android:gravity="center_horizontal" android:background="#CCC">
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/sr_btn_ok" android:text="Ok" android:width="100dip" android:layout_margin="10dip"></Button>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/sr_btn_cancel" android:text="Cancel" android:width="100dip" android:layout_margin="10dip"></Button>
+	</LinearLayout>
+</LinearLayout>
